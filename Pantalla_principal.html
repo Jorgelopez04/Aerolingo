@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aerolingo - Destinos</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      color: white;
+    }
+
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 25px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    /* General Styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      height: 100%;
+      background-image: url('https://img.freepik.com/vector-premium/viajar-mundo-avion-ubicacion-pin-mapa-mundial-ilustracion-plana-viaje_471402-694.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed; /* Imagen de fondo fija */
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+      background-color: rgba(0, 4, 255, 0.667);
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      background-image: url("logosinfondojpg");
+      background-size: cover;
+      background-position: center left;
+      background-repeat: no-repeat;
+      position: relative;
+      margin-bottom: 20px; /* Espacio entre el logo y el siguiente elemento */
+      width: 500px;
+      height: 100px; /* Aumenta el tamaño del logo */
+      display: block; /* Asegura que la imagen se comporte como un bloque */
+    }
+
+    .search-bar {
+      width: 40%;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 60%;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+    }
+
+    .map-container {
+      background-image: url('mapa.png'); /* Aquí insertas la imagen del mapa */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 300px;
+      position: relative;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-container h2 {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ffffff;
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .continentes {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      position: absolute;
+      top: 50%; /* Ajusta según la altura deseada */
+    }
+
+    .continente {
+      font-size: 14px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .continente:hover {
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .card-container {
+      display: grid; /* Cambiado a grid para controlar mejor las filas */
+      grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+      gap: 20px; /* Espaciado entre las tarjetas */
+      margin-top: 20px;
+      padding: 0 10px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 15px;
+      margin: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer; /* Cursor en forma de mano */
+      border: none; /* Eliminar bordes */
+    }
+
+    .card img {
+      border-radius: 15px;
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      margin: 15px 0;
+    }
+
+    .card p {
+      color: #ff0000;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      background-color: #ffffff;
+      padding: 5px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar a {
+      font-size: 20px;
+      color: #007bff;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .menu-icon {
+      font-size: 30px; /* Tamaño del icono de menú */
+    }
+    h2 {
+      text-align: center;
+      margin-top: 150px; /* Ajuste para mover el título más abajo */
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <span class="menu-icon" onclick="openNav()">☰</span> <!-- Icono de tres rayas -->
+    <img src="logosinfondo.png"  class="logo">
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar...">
+    </div>
+  </div>
+
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+    
+    <!-- Profile Section -->
+     <div class="profile">
+       <h2 id="nombreUsuario"></h2> <!-- Nombre de usuario -->
+    </div>
+    
+    <!-- Menu Links -->
+        <a href="Pantalla_principal.html">Principal</a>
+        <a href="#notificaciones">Notificaciones</a>
+        <a href="Mostrar_progreso.html">Mostrar Progreso</a>
+        <a href="Compartir_con_amigos.html">Conectar con amigos</a>
+        <a href="#calendario">Calendario</a>
+        <a href="#configuracion">Configuración</a>
+        <a href="Ayuda_comentarios.html">Ayuda y comentarios</a> 
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+
+    // Cargar nombre de usuario desde localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+        const nombreUsuario = localStorage.getItem("nombreUsuario") || "Usuario";
+        document.getElementById("nombreUsuario").textContent = nombreUsuario;
+    })
+     function irADestino(destino) {
+      window.location.href = destino + ""; // Redirigir a la página del destino
+    };
+  </script>
+
+  <!-- Mapa de Continentes -->
+  <div class="map-container">
+    <h2>¿Qué destino te gustaría visitar?</h2>
+    <div class="continentes">
+      <a href="SurAmerica.html" class="continente">Sur América</a>
+      <a href="Europa.html" class="continente">Europa</a>
+      <a href="NorteAmerica.html" class="continente">Norte América</a>
+      <a href="Asia.html" class="continente">Asia</a>      
+      <a href="Africa.html" class="continente">África</a>
+    </div>
+  </div>
+
+  <!-- Sección de Tarjetas -->
+  <div class="card-container">
+    <div class="card" onclick="irADestino('opciones_destino1.html')">
+      <img src="https://www.exploorperu.com/wp-content/uploads/2023/04/7-Reasons-to-Visit-Lake-Titicaca-in-Peru-exploorperu-blog-uros-island.webp" onclick="irADestino('LagoTiticaca')">
+      <h3>Lago Titicaca</h3>
+      <p>2'500.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://blog.localadventures.mx/wp-content/uploads/2022/11/local2-2.png" alt="La Patagonia">
+      <h3>La Patagonia</h3>
+      <p>4'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://www.semana.com/resizer/v2/D3DK5L4PUJAY3DOIUF5NIQYOV4.jpg?auth=34aedcb40721eb4ee0a4130062447379fa3d9cb5548b3c6c043a5d084ee37413&smart=true&quality=75&width=1280&fitfill=false" alt="Quibdo">
+      <h3>Quibdo</h3>
+      <p>500.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://i0.wp.com/viajealpatrimonio.com/wp-content/uploads/2019/09/0672-brasilia.jpg?ssl=1" alt="Brasilia">
+      <h3>Brasilia</h3>
+      <p>10'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://invervisas.com/wp-content/uploads/2021/06/hongkong.jpg" alt="Hong Kong">
+      <h3>Hong Kong</h3>
+      <p>28'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://www.gotokyo.org/es/plan/tokyo-outline/images/xmain.jpg.pagespeed.ic.Ll9uJQfU_S.jpg" alt="Tokio">
+      <h3>Tokio</h3>
+      <p>30'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/90/a3/fa/modern-kabul-city.jpg?w=1100&h=1100&s=1" alt="Kabul">
+      <h3>Kabul</h3>
+      <p>30'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://www.barcelo.com/guia-turismo/wp-content/uploads/2022/05/elcairo-que-visitar-pal.jpg" alt="El Cairo">
+      <h3>El Cairo</h3>
+      <p>20'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://t3.ftcdn.net/jpg/07/23/76/74/360_F_723767411_4VU2EL7qdYIMMMkEYKcOJagorTpZ13S9.jpg" alt="Joal">
+      <h3>Joal</h3>
+      <p>15'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://content.r9cdn.net/rimg/dimg/2f/e1/7850c4a1-lm-58522-16ac66da4bb.jpg?crop=true&width=1020&height=498" alt="Montevideo">
+      <h3>Montevideo</h3>
+      <p>7'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://www.journeygourmet.com/continentes/Africa/Nigeria/Kaduna/Kaduna/imagenBig.jpg" alt="Kaduna">
+      <h3>Kaduna</h3>
+      <p>12'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://www.toronto.ca/wp-content/uploads/2024/07/8fc2-social-VEO.jpg" alt="Toronto">
+      <h3>Toronto</h3>
+      <p>8'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1714594923299-e915b7d71701?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FyYWNhcyUyMHZlbmV6dWVsYXxlbnwwfHwwfHx8MA%3D%3D" alt="Caracas">
+      <h3>Caracas</h3>
+      <p>2'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://a.travel-assets.com/findyours-php/viewfinder/images/res70/474000/474240-Left-Bank-Paris.jpg" alt="Paris">
+      <h3>Paris</h3>
+      <p>12'500.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://vivecamino.com/img/gal/lisboa-sean3810istock_9672_p.jpg" alt="Lisboa">
+      <h3>Lisboa</h3>
+      <p>8'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Palacio_de_Comunicaciones_-_07.jpg/800px-Palacio_de_Comunicaciones_-_07.jpg" alt="Madrid">
+      <h3>Madrid</h3>
+      <p>8'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVaZIHH3At2CFFJNtv4FPbyZvoblwDe_Gpqw&s" alt="Miami">
+      <h3>Miami</h3>
+      <p>6'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://elordenmundial.com/wp-content/uploads/2024/07/por-que-capital-estados-unidos-washington-dc.jpg" alt="Washington">
+      <h3>Washington</h3>
+      <p>12'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://www.bedrock-communities.com/wp-content/uploads/2023/11/Best-Beaches-in-Central-Florida-optimized.png" alt="Florida">
+      <h3>Florida</h3>
+      <p>8'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZC7AlqawBMxh_PdopwTEDkefYR82CeSL1PQ&s" alt="Los_Angeles">
+      <h3>Los Angeles</h3>
+      <p>15'000.000</p>
+    </div>
+    
+    <div class="card">
+      <img src="https://www.revistadeck.com/wp-content/uploads/LondonI.jpg" alt="Londres">
+      <h3>Londres</h3>
+      <p>25'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZC7AlqawBMxh_PdopwTEDkefYR82CeSL1PQ&s" alt="Los_Angeles">
+      <h3>Los Angeles</h3>
+      <p>15'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://www.visitberlin.de/system/files/styles/visitberlin_teaser_single_visitberlin_mobile_1x/private/image/Museumsinsel_iStock_c_Sean%20Pavone_kranweg_OCV_DL_PPT_0.jpg?h=2c8af2b5&itok=5-pIG-7I" alt="Berlin">
+      <h3>Berlin</h3>
+      <p>20'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://viajes.nationalgeographic.com.es/medio/2024/09/10/bruselas_7f1a3ad9_1310078415_240910115230_1280x894.jpg" alt="Bruselas">
+      <h3>Bruselas</h3>
+      <p>17'500.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://www.barcelo.com/guia-turismo/wp-content/uploads/que-visitar-en-barcelona-1.jpg" alt="Barcelona">
+      <h3>Barcelona</h3>
+      <p>21'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/800px-Stadtbild_M%C3%BCnchen.jpg" alt="Munich">
+      <h3>Munich</h3>
+      <p>23'500.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://static.nationalgeographic.es/files/styles/image_3200/public/colosseum-daylight-rome-italy.jpg?w=1600&h=900" alt="Roma">
+      <h3>Roma</h3>
+      <p>20'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://media.traveler.es/photos/6231abc7d03e1c5549e648ca/16:9/w_2560%2Cc_limit/The%2520Best%2520Places%2520for%2520Female%2520Solo%2520Travelers_Amsterdam_GettyImages-923546342.jpg" alt="Amsterdam">
+      <h3>Amsterdam</h3>
+      <p>22'500.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://imagenes.20minutos.es/files/image_990_556/uploads/imagenes/2022/03/30/fotografia-de-milan.jpeg" alt="Milan">
+      <h3>Milan</h3>
+      <p>23'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://fotografias.larazon.es/clipping/cmsimages01/2019/08/09/245E4071-4F4A-486F-A012-D0BC41F99413/98.jpg?crop=2000,1125,x0,y104&width=1900&height=1069&optimize=low&format=webply" alt="Praga">
+      <h3>Praga</h3>
+      <p>19'500.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/f3/b4/19/caption.jpg?w=500&h=400&s=1" alt="Nairobi">
+      <h3>Nairobi</h3>
+      <p>14'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://www.flyuniversalair.com/wp-content/uploads/2024/02/Tripoli_Universal_Air_Website.jpg" alt="Tripoli">
+      <h3>Tripoli</h3>
+      <p>11'500.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://ahoraeg.com/wp-content/uploads/2019/12/catedr%C3%A1l-de-santa-isabel-malabo.jpg" alt="Malabo">
+      <h3>Malabo</h3>
+      <p>10'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://content.r9cdn.net/rimg/dimg/a2/04/dd9815df-city-10465-167c5c4403a.jpg?crop=true&width=1020&height=498" alt="Argel">
+      <h3>Argel</h3>
+      <p>16'700.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://media.traveler.es/photos/61375f03ea50dbd37eade9a3/master/w_1600%2Cc_limit/213176.jpg" alt="Pekin">
+      <h3>Pekin</h3>
+      <p>26'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2LW-kwXIuq2Ak06qWeN2nG_lR1GHp29CLsA&s" alt="Jerusalen">
+      <h3>Jerusalen</h3>
+      <p>18'500.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://a.storyblok.com/f/112937/567x464/b521a9ee4b/visit_seoul_web.jpg/m/620x0/filters:quality(70)/" alt="Seul">
+      <h3>Seul</h3>
+      <p>25'000.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://live.staticflickr.com/2942/33244268934_dbb7117bd9_c.jpg" alt="Daca">
+      <h3>Daca</h3>
+      <p>20'000.000</p>
+    </div>
+  </div>
+
+  <!-- Barra de Navegación -->
+  <div class="navbar">
+    <a href="Pantalla_principal.html">🏠</a>
+    <a href="Favoritos.html">❤️</a>
+    <a href="Compras.html">🛒</a>
+    <a href="Perfil.html">👤</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seleccionar Idioma</title>
+  <style>
+    .logo {
+      /* Tamaño del logo */
+      background-image: url("logo.jpg");
+      background-size: cover;
+      background-position: top;
+      background-repeat: no-repeat;
+      position: relative;
+      margin-bottom: 40px;
+      width: 350px;
+      height: 100px;
+      display: block;
+    }
+
+    body {
+      background-color: #007bff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      background-image: url('imagen_de_fondo_pantalla_de_inicio.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .select-container {
+      width: 100%;
+      max-width: 300px; /* Ajusta el ancho del contenedor */
+      max-height: 120px; /* Ajusta la altura máxima */
+      overflow-y: auto; /* Habilita el scroll vertical */
+      margin-bottom: 20px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: white;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logo.png" class="logo">
+    <h1> ¿En qué país estás?</h1>
+    <div class="select-container">
+      <select id="idioma" size="5"> <!-- 'size' permite ver varias opciones a la vez -->
+        <option value="">Selecciona el país</option>
+        <option value="en">Argelia</option>
+        <option value="fr">Albania</option>
+        <option value="fr">Argentina</option>
+        <option value="fr">Colombia</option>
+        <option value="fr">Chile</option>
+        <option value="fr">China</option>  
+        <option value="fr">Ecuador</option>
+        <option value="es">España</option>
+        <option value="fr">Estados Unidos</option>
+        <option value="fr">Francia</option> 
+        <option value="fr">Indonesia</option> 
+        <option value="fr">Jamaica</option>
+        <option value="fr">Japón</option>  
+        <option value="fr">Lituania</option>
+        <option value="fr">Perú</option>
+        <option value="fr">Portugal</option>   
+        <option value="fr">Rusia</option> 
+        <option value="fr">Uruguay</option>
+        <option value="fr">Venezuela</option>
+      </select>
+    </div>
+    <button onclick="proceedToRegistration()">Continue</button>
+  </div>
+
+  <script>
+    function proceedToRegistration() {
+      const idiomaSeleccionado = document.getElementById("idioma").value;
+      if (idiomaSeleccionado) {
+        window.location.href = 'Pantalla_principal.html';
+      } else {
+        alert("Por favor, selecciona el país en que estás.");
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

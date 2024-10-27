@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aerolingo - Seleccionar Región</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      color: white;
+    }
+
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 25px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    /* General Styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      height: 100%;
+      background-image: url('https://img.freepik.com/vector-premium/viajar-mundo-avion-ubicacion-pin-mapa-mundial-ilustracion-plana-viaje_471402-694.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+      background-color: rgba(0, 4, 255, 0.667);
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      background-image: url("logo.jpg");
+      background-size: cover;
+      background-position: center left;
+      background-repeat: no-repeat;
+      position: relative;
+      margin-bottom: 20px; 
+      width: 500px;
+      height: 100px;
+      display: block;
+    }
+
+    .search-bar {
+      width: 40%;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 60%;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      font-size: 30px;
+      color: #111;
+    }
+
+    .form-container {
+      text-align: center;
+      margin-top: 50px; 
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container img {
+      width: 80%; 
+      max-width: 480px; 
+      border-radius: 10px;
+    }
+
+    .form-container select, .form-container button {
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #eaeaea;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      background-color: #ffffff;
+      padding: 5px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar a {
+      font-size: 20px;
+      color: #007bff;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    h2 {
+      text-align: center; 
+      color: #ffffff; 
+    }
+
+    .profile {
+      text-align: center; 
+      color: #ffffff; 
+    }
+
+    #mySidebar {
+      width: 200px; 
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header-cajon">
+    <div class="header">
+      <span class="menu-icon" onclick="openNav()">☰</span>
+      <img src="logo.png" class="logo">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar...">
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar-cajon">
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+      
+      <!-- Profile Section -->
+      <div class="profile">
+        <h2 id="nombreUsuario"></h2> 
+      </div>
+      
+      <!-- Menu Links -->
+        <a href="Pantalla_principal.html">Principal</a>
+        <a href="#notificaciones">Notificaciones</a>
+        <a href="Mostrar_progreso.html">Mostrar Progreso</a>
+        <a href="Compartir_con_amigos.html">Conectar con amigos</a>
+        <a href="#calendario">Calendario</a>
+        <a href="#configuracion">Configuración</a>
+        <a href="Ayuda_comentarios.html">Ayuda y comentarios</a> 
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-cajon">
+    <h2>Selecciona una región para ver las clases</h2>
+    <div class="form-container">
+      <img src="https://spmedia.s3.amazonaws.com/wp-content/uploads/2009/08/regiones_top.jpg" alt="Regiones de Perú">
+      <form id="regionForm">
+        <select id="region" required>
+          <option value="">Seleccione una región...</option>
+          <option value="sierra">Sierra</option>
+          <option value="costa">Costa</option>
+          <option value="selva">Selva</option>
+        </select>
+        <button type="submit">Ver Clases</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <div class="navbar-cajon">
+    <div class="navbar">
+      <a href="Pantalla_principal.html">🏠</a> 
+      <a href="Favoritos.html">❤️</a>
+      <a href="Compras.html">🛒</a>
+      <a href="Perfil.html">👤</a>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "200px"; 
+    }
+
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+
+    // Cargar nombre de usuario desde localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+      const nombreUsuario = localStorage.getItem("nombreUsuario") || "Usuario";
+      document.getElementById("nombreUsuario").textContent = nombreUsuario;
+    });
+
+    // Redirigir a la página de clases según la región seleccionada
+    document.getElementById('regionForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const regionSeleccionada = document.getElementById('region').value;
+      if (regionSeleccionada) {
+        // Redirigir directamente al archivo HTML correspondiente de cada región
+        window.location.href = regionSeleccionada + '_clases.html';
+      }
+    });
+  </script>
+
+</body>
+</html>

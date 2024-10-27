@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seleccionar Idioma</title>
+  <style>
+
+    .logo {
+      background-image: url("logosinfondojpg");
+      background-size: cover;
+      background-position: center left;
+      background-repeat: no-repeat;
+      position: relative;
+      margin-bottom: 20px; /* Espacio entre el logo y el siguiente elemento */
+      width: 500px;
+      height: 100px; /* Aumenta el tamaño del logo */
+      display: block; /* Asegura que la imagen se comporte como un bloque */
+    }
+    body{
+      background-color: #007bff;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      background-image: url('imagen_de_fondo_pantalla_de_inicio.jpg'); /* Ajusta el nombre de la imagen si es necesario */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco translúcido */
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logosinfondo.png"  class="logo">
+    <h1> What language do you speak?</h1>
+    <select id="idioma">
+      <option value="">Select your language</option>
+      <option value="en">English</option>
+      <option value="fr">French</option>
+      <option value="fr">Italian</option>
+      <option value="fr">Japanese</option>
+      <option value="fr">Portuguese</option>
+      <option value="es">Spanish</option>
+      <option value="fr">Thai</option>   
+      <!-- Agrega más opciones de idioma según sea necesario -->
+    </select>
+    <button onclick="proceedToRegistration()">Continue</button>
+  </div>
+
+  <script>
+    function proceedToRegistration() {
+      const idiomaSeleccionado = document.getElementById("idioma").value;
+      if (idiomaSeleccionado) {
+        // Redirigir a la página de registro
+        window.location.href = 'registrar.php'; // Asegúrate de que el nombre del archivo sea correcto
+      } else {
+        alert("Please select a language.");
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+

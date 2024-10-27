@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seleccionar Permisos</title>
+  <style>
+    body {
+      background-color: #007bff; /* Color de fondo azul */
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      background-image: url('imagen_de_fondo_pantalla_de_inicio.jpg'); /* Ajusta el nombre de la imagen si es necesario */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco translúcido */
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block; /* Para que cada opción de radio ocupe toda la línea */
+      margin: 5px 0; /* Espacio entre las opciones */
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px; /* Espacio entre las preguntas y el botón */
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Permisos</h1>
+
+    <p>¿Deseas dar permisos de sonido?</p>
+    <label><input type="radio" name="sonido" value="si"> Sí</label>
+    <label><input type="radio" name="sonido" value="no"> No</label>
+
+    <p>¿Deseas dar permisos de cámara?</p>
+    <label><input type="radio" name="camara" value="si"> Sí</label>
+    <label><input type="radio" name="camara" value="no"> No</label>
+
+    <p>¿Deseas dar permisos de ubicación?</p>
+    <label><input type="radio" name="ubicacion" value="si"> Sí</label>
+    <label><input type="radio" name="ubicacion" value="no"> No</label>
+
+    <p>¿Deseas recibir notificaciones?</p>
+    <label><input type="radio" name="notificaciones" value="si"> Sí</label>
+    <label><input type="radio" name="notificaciones" value="no"> No</label>
+
+    <button onclick="guardarSeleccion()">Continuar</button>
+  </div>
+
+  <script>
+    function guardarSeleccion() {
+      // Guardar permisos
+      const permisos = {
+        sonido: document.querySelector('input[name="sonido"]:checked')?.value,
+        camara: document.querySelector('input[name="camara"]:checked')?.value,
+        ubicacion: document.querySelector('input[name="ubicacion"]:checked')?.value,
+        notificaciones: document.querySelector('input[name="notificaciones"]:checked')?.value
+      };
+
+      // Comprobar si se han seleccionado todos los permisos
+      if (permisos.sonido && permisos.camara && permisos.ubicacion && permisos.notificaciones) {
+        // Guardar en localStorage
+        localStorage.setItem("permisos", JSON.stringify(permisos));
+        alert("Tu selección ha sido guardada.");
+
+        // Redirigir a la pantalla principal
+        window.location.href = 'pantalla_principal.html'; // Asegúrate de que el nombre del archivo sea correcto
+      } else {
+        alert("Por favor, completa todas las preguntas.");
+      }
+    }
+  </script>
+</body>
+</html>
