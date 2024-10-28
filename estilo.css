@@ -1,13 +1,27 @@
-body{
-  box-sizing: border-box;
-  font-family:Arial,Helvetica,sans-serif;
-  display: flex;
-  
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-
+/* estilo.css */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Asegúrate de que el cuerpo ocupe toda la altura de la ventana */
+    background-image:url('https://img.freepik.com/fotos-premium/cree-imagen-que-simbolice-puntos-referencia-viajes-mundiales-familia_980716-3432.jpg'); /* Reemplaza con la ruta a tu imagen */
+    background-size: cover; /* Asegúrate de que la imagen cubra todo el fondo */
+    background-position: center; /* Centrar la imagen */
+    display: flex; /* Usar flexbox */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
 }
+
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente para el formulario */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    max-width: 400px; /* Limitar el ancho del contenedor */
+    width: 100%; /* Ancho del contenedor al 100% */
+    margin: 0; /* No necesitamos margen aquí */
+}
+
 
 
 form{
