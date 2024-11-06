@@ -85,7 +85,8 @@
 
     <!-- Caja de Login -->
     <div class="login-box">
-      <button onclick="window.location.href='login.html'">Log in</button> <!-- Conecta a login.html -->
+      <button onclick="window.location.href='login_usuario.php'">Log in</button> <!-- Conecta a login.html -->
+      
       <p>Don’t have an account? <a href="preguntar_idioma_nativo.html">Sign Up</a></p> <!-- Conecta a preguntar_idioma_nativo.html -->
     </div>
   </div>

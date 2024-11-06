@@ -8,7 +8,8 @@ if (isset($_POST['register'])) {
         strlen($_POST["identificacion"]) >= 1 &&
         strlen($_POST["phone"]) >= 1 &&
         strlen($_POST["email"]) >= 1 &&
-        strlen($_POST["password"]) >= 1
+        strlen($_POST["password"]) >= 1 &&
+        strlen($_POST["username"]) >= 1
     ) {
         $name = trim($_POST["name"]);
         $apellidos = trim($_POST["apellidos"]);
@@ -16,7 +17,8 @@ if (isset($_POST['register'])) {
         $phone = trim($_POST["phone"]);
         $email = trim($_POST["email"]);
         $password = trim($_POST["password"]);
-        
+        $username = trim($_POST["username"]); // Aquí se corrige el error
+
         // Verificar si la identificación ya existe
         $checkQuery = "SELECT * FROM users WHERE identificacion = ?";
         $stmt = $conex->prepare($checkQuery);
@@ -44,4 +46,5 @@ if (isset($_POST['register'])) {
     }
 }
 ?>
+
 

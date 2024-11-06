@@ -1,58 +1,50 @@
 <?php
-session_start(); // Iniciar la sesión
-require 'conexion.php'; // Incluir el archivo de conexión
+session_start();
+include('conexion_inicio.php'); // Conexión a la base de datos
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $contrasena = $_POST['password']; // Asegúrate de que el nombre coincida con el formulario
+if (isset($_POST['email']) && isset($_POST['password'])) {
 
-    // Consultar en la base de datos
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?"); // Asegúrate de que la columna se llama 'email'
-    if ($stmt) {
-        $stmt->bind_param("s", $email);
+    function validate($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
+    $email = validate($_POST['email']);
+    $password = validate($_POST['password']);
+
+    if (empty($email)) {
+        header("Location: login_usuario.php?error=El email es requerido");
+        exit();
+    } elseif (empty($password)) {
+        header("Location: login_usuario.php?error=La clave es requerida");
+        exit();
+    } else {
+        $Sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $conexion->prepare($Sql); // Consulta preparada
+        $stmt->bind_param("s", $email); // Vincular parámetro
         $stmt->execute();
         $result = $stmt->get_result();
-        
-        // Verificar si se obtuvo un usuario
-        if ($user = $result->fetch_assoc()) {
-            // Verificar la contraseña
-            if (password_verify($contrasena, $user['contraseña'])) { // Asegúrate de que la columna se llama 'contraseña'
-                $_SESSION['usuario'] = $user['nombre']; // Almacenar el nombre del usuario en la sesión
-                header("Location: Pantalla_principal.html"); // Redirigir a la pantalla principal
-                exit(); // Asegúrate de llamar a exit() después de header
+
+        if ($result->num_rows === 1) {
+            $row = $result->fetch_assoc();
+            // Compara la contraseña directamente
+            if ($row['contraseña'] === $password) {
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['name'] = $row['nombre'];
+                $_SESSION['identificacion'] = $row['identificacion'];
+                header("Location: Pantalla_principal.php"); // Redirige a la pantalla principal
+                exit();
             } else {
-                echo '<h3 class="error">Credenciales incorrectas</h3>'; // Mensaje de error para contraseña incorrecta
+                header("Location: login_usuario.php?error=El usuario o la clave son incorrectas");
+                exit();
             }
         } else {
-            echo '<h3 class="error">No se encontró un usuario con ese email</h3>'; // Mensaje de error para email no encontrado
+            header("Location: login_usuario.php?error=El usuario o la clave son incorrectas");
+            exit();
         }
-    } else {
-        echo '<h3 class="error">Error en la consulta: ' . $conn->error . '</h3>'; // Mensaje de error para problemas en la consulta
     }
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="estilo.css">
-</head>
-<body>
-    <form method="post">
-        <div class="container">    
-            <div class="input-wrapper">
-                <input type="email" name="email" placeholder="Email" required> <!-- Campo requerido -->
-            </div>
-
-            <div class="input-wrapper">
-                <input type="password" name="password" placeholder="Contraseña" required> <!-- Campo requerido -->
-            </div>
-
-            <input class="btn" type="submit" value="Enviar"> <!-- Botón para enviar el formulario -->
-        </div>
-    </form>
-</body>
-</html>
